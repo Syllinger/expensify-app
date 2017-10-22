@@ -1,9 +1,23 @@
 import {createStore} from 'redux';
 
 // Action generators: fucntions that return action objects
-const incrementCount = (payload = {}) => ({
+const incrementCount = ({incrementBy = 1} = {}) => ({
   type: 'INCREMENT',
-  incrementBy: typeof payload.incrementBy === 'number' ? payload.incrementBy : 1
+  incrementBy
+});
+
+const decrementCount = ({decrementBy = 1} = {}) => ({
+  type: 'DECREMENT',
+  decrementBy
+});
+
+const resetCount = () => ({
+  type: 'RESET'
+});
+
+const setCount = ({count}) => ({
+  type: 'SET',
+  count
 });
 
 /*
@@ -15,8 +29,7 @@ const store = createStore((state = { count:0 }, action) => {
     case 'INCREMENT':
       return { count: state.count + action.incrementBy };
     case 'DECREMENT':
-      const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
-      return { count: state.count - decrementBy };
+      return { count: state.count - action.decrementBy };
     case 'RESET':
       return { count: 0 };
     case 'SET':
@@ -58,24 +71,11 @@ becuase we are trying to avoid magic strings. If there wre an error
 in the hard-coded object, they would be tough to debug.
 */
 store.dispatch(incrementCount({ incrementBy: 5 }));
-
-
 store.dispatch(incrementCount());
 
-store.dispatch({
-  type: 'RESET'
-});
+store.dispatch(resetCount());
 
-store.dispatch({
-  type: 'DECREMENT',
-  decrementBy: 10
-});
+store.dispatch(decrementCount());
+store.dispatch(decrementCount({ decrementBy: 10 }));
 
-store.dispatch({
-  type: 'DECREMENT'
-});
-
-store.dispatch({
-  type: 'SET',
-  count: 101
-});
+store.dispatch(setCount({ count: 40 }));
