@@ -1,6 +1,12 @@
 import {createStore} from 'redux';
 
-// Action generators: fucntions that return action objects
+/* 
+Action generators: fucntions that return action objects
+The purpose of action generators is to alert that something 
+happened, but don't indicate how the application state changes 
+in response.
+*/
+
 const incrementCount = ({incrementBy = 1} = {}) => ({
   type: 'INCREMENT',
   incrementBy
@@ -21,10 +27,14 @@ const setCount = ({count}) => ({
 });
 
 /*
-This function sets the initial state, and runs any time 
-an action is triggered on the store.
+Reducers: Describe the impact that actions created when action 
+generators execute have on appolication state.
+1. Reducers are pure functions (reducers operate only on data 
+passed into them, and only provide data via a return value)
+2. Never change state or action
 */
-const store = createStore((state = { count:0 }, action) => {
+
+const countReducer = (state = { count:0 }, action) => {
   switch (action.type) {
     case 'INCREMENT':
       return { count: state.count + action.incrementBy };
@@ -37,7 +47,13 @@ const store = createStore((state = { count:0 }, action) => {
     default:
       return state;
   }
-});
+};
+
+/*
+This function sets the initial state, and runs any time 
+an action is triggered on the store.
+*/
+const store = createStore(countReducer);
 
 /* This function executes any time Redux detects that the state 
 changes. Setting to this variable reutns a function that, when 
