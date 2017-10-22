@@ -1,5 +1,11 @@
 import {createStore} from 'redux';
 
+// Action generators: fucntions that return action objects
+const incrementCount = (payload = {}) => ({
+  type: 'INCREMENT',
+  incrementBy: typeof payload.incrementBy === 'number' ? payload.incrementBy : 1
+});
+
 /*
 This function sets the initial state, and runs any time 
 an action is triggered on the store.
@@ -7,8 +13,7 @@ an action is triggered on the store.
 const store = createStore((state = { count:0 }, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
-      return { count: state.count + incrementBy };
+      return { count: state.count + action.incrementBy };
     case 'DECREMENT':
       const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
       return { count: state.count - decrementBy };
@@ -42,15 +47,20 @@ argument "action" and we use a switch statement to handle each
 but an unlimited number of additional properties can be added to 
 be handled by the funciton defined in "createStore."
 */
-store.dispatch({
-  type: 'INCREMENT',
-  incrementBy: 5
-});
+// store.dispatch({
+//   type: 'INCREMENT',
+//   incrementBy: 5
+// });
 
-// Decrement
-store.dispatch({
-  type: 'INCREMENT'
-});
+/*
+We use an action generator instaed of passing the object in line 
+becuase we are trying to avoid magic strings. If there wre an error 
+in the hard-coded object, they would be tough to debug.
+*/
+store.dispatch(incrementCount({ incrementBy: 5 }));
+
+
+store.dispatch(incrementCount());
 
 store.dispatch({
   type: 'RESET'
