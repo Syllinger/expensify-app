@@ -17,7 +17,13 @@ const store = createStore((state = { count:0 }, action) => {
   }
 });
 
-console.log(store.getState());
+/* This function executes any time Redux detects that the state 
+changes. Setting to this variable reutns a function that, when 
+called, will stop this function from responding to future events.
+*/
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState());
+});
 
 // Action: an object that gets sent to the store
 
@@ -46,5 +52,3 @@ store.dispatch({
 store.dispatch({
   type: 'DECREMENT'
 });
-
-console.log(store.getState());
