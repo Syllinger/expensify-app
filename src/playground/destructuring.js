@@ -1,3 +1,5 @@
+/* OBJECT DESTRUCTURING */
+
 const person = {
   name: 'Mark',
   currentAge: 33,
@@ -28,3 +30,15 @@ const {city, temp: temperature} = person.location;
 if (city && temperature) {
   console.log (`It's ${temperature} in ${city}.`);
 }
+
+/* ARRAY DESTRUCTURING */
+
+const address = ['121 Queen Street E', 'Toronto', 'Ontario', 'M9W 6N0'];
+
+/*
+Include a comma as a placeholder for a value that you do not 
+need to extract from the array.
+*/
+const [, municipality = 'Toronto', province] = address;
+
+console.log(`You are in ${municipality} ${province}.`);
