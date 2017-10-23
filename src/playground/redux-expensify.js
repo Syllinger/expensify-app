@@ -1,4 +1,4 @@
-import { createStore, combineReducers} from 'redux';
+import {createStore, combineReducers} from 'redux';
 import uuid from 'uuid';
 
 // Expense Action Generators
@@ -65,7 +65,7 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
   }
 };
 
-// Expense Action Generators
+// Filter Action Generators
 
 // SET_TEXT_FILTER
 const setTextFilter = (text = '') => ({
@@ -100,6 +100,7 @@ const setEndDate = (date = undefined) => ({
   type: 'SET_END_DATE',
   date
 });
+
 // Filters Reducer
 
 const filtersReducerDefaultState  = {
