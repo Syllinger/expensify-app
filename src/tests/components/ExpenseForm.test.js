@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import {shallow} from 'enzyme';
-import 'react-dates/initialize';
 import ExpenseForm from '../../components/ExpenseForm';
 import expenses from '../fixtures/expenses';
 
